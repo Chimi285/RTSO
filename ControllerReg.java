@@ -26,6 +26,7 @@ public class ControllerReg{
     private TextField TF1;
     private GraphicsContext gc;
     @FXML
+    //comment fo git
         private void mouseClick(MouseEvent event) throws IOException {
         Stage stage = (Stage) TF1.getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("sceneField.fxml"));
