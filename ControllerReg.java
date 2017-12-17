@@ -70,7 +70,7 @@ public class ControllerReg{
                                     gc.fillRect(0, 0, 2000, 2000);
                                     gc.setFill(Color.FORESTGREEN);
                                     for (Hero oo : Main.characters) {
-                                        System.out.print(oo.getName()+":"+oo.getX()+":"+oo.getY()+"/");
+                                        //System.out.print(oo.getName()+":"+oo.getX()+":"+oo.getY()+"/");
                                         gc.fillOval(
                                                 oo.getX(),
                                                 oo.getY(),

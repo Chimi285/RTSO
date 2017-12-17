@@ -70,13 +70,13 @@ public class Main extends Application {
                                 authorizationResult = "Ok";
 
                             } else if (authorizationResult.equals("Ok")) {
+                                chart = new LinkedList<Hero>();
                                 for (int ii = 0; ii < message.length(); ii++) {
                                     int mode = 0;
                                     String str = "";
                                     String name = "";
                                     int x = -1;
                                     int y = -1;
-                                    chart = new LinkedList<Hero>();
                                     for (int i = ii; i < message.length(); i++) {
                                         if (message.charAt(i) != '.') {
                                             str += message.charAt(i);
@@ -91,22 +91,28 @@ public class Main extends Application {
                                         } else {
                                             y = Integer.parseInt(str);
                                             str = "";
-                                            chart.add(new Hero(name, x, y));
+                                            Hero xxx = new Hero(name, x, y);
+                                            //System.out.print(xxx.getName() + ":" + xxx.getX() + ":" + xxx.getY()+"/");
+                                            chart.add(xxx);
                                             i = message.length();
                                         }
                                         ii++;
                                     }
                                     ii--;
                                 }
+                                //System.out.println();
                                 if (characters != null) {
                                     for (Hero o : chart) { //оптимизировать
                                         boolean has = false;
                                         for (Hero oo : characters) {
+                                            //System.out.println(o.getName() +":"+ oo.getName());
                                             if (o.getName().equals(oo.getName())) {
                                                 if(oo.getName().equals(nickname)) {X = oo.getX(); Y = oo.getY();}
                                                 oo.setXY(o.getX(), o.getY());
                                                 has = true;
-
+                                                //System.out.println(o.getName() +":"+ oo.getName() +" is");
+                                            }else{
+                                                //System.out.println(o.getName() +":"+ oo.getName() + " isn't");
                                             }
                                         }
                                         if (!has) {
