@@ -35,7 +35,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
 
-        int serverPort = 6768;
+        int serverPort = 6969;
         String address = "127.0.0.1";
 
         try{
@@ -64,7 +64,7 @@ public class Main extends Application {
                         if (inMessage.hasNext()) {
                             //System.out.println("Have a new message!");
                             message = inMessage.nextLine();
-                            //33System.out.println(message);
+                            //System.out.println(message);
                             if (message.equalsIgnoreCase("Authorization Successful!")) {
                                 System.out.println("Authorization Successful from Client.");
                                 authorizationResult = "Ok";
@@ -77,6 +77,8 @@ public class Main extends Application {
                                     String name = "";
                                     int x = -1;
                                     int y = -1;
+                                    int health = -1;
+                                    int side = -1;
                                     for (int i = ii; i < message.length(); i++) {
                                         if (message.charAt(i) != '.') {
                                             str += message.charAt(i);
@@ -88,11 +90,19 @@ public class Main extends Application {
                                             x = Integer.parseInt(str);
                                             str = "";
                                             mode++;
-                                        } else {
+                                        } else if(mode == 2){
                                             y = Integer.parseInt(str);
                                             str = "";
-                                            Hero xxx = new Hero(name, x, y);
-                                            //System.out.print(xxx.getName() + ":" + xxx.getX() + ":" + xxx.getY()+"/");
+                                            mode++;
+                                        }else if(mode == 3){
+                                            health = Integer.parseInt(str);
+                                            str = "";
+                                            mode++;
+                                        }else {
+                                            side = Integer.parseInt(str);
+                                            str = "";
+                                            Hero xxx = new Hero(name, x, y, health, side);
+                                            //System.out.print(xxx.getName() + ":" + xxx.getX() + ":" + xxx.getY()+ ":" + xxx.getSide()+"/");
                                             chart.add(xxx);
                                             i = message.length();
                                         }
@@ -109,6 +119,8 @@ public class Main extends Application {
                                             if (o.getName().equals(oo.getName())) {
                                                 if(oo.getName().equals(nickname)) {X = oo.getX(); Y = oo.getY();}
                                                 oo.setXY(o.getX(), o.getY());
+                                                oo.setSide(o.getSide());
+                                                oo.setHealth(o.getHealth());
                                                 has = true;
                                                 //System.out.println(o.getName() +":"+ oo.getName() +" is");
                                             }else{
@@ -116,14 +128,14 @@ public class Main extends Application {
                                             }
                                         }
                                         if (!has) {
-                                            characters.add(new Hero(o.getName(), o.getX(), o.getY()));
+                                            characters.add(new Hero(o.getName(), o.getX(), o.getY(), o.getHealth(), o.getSide()));
                                         }
                                     }
                                 } else {
                                     if(chart != null) {
                                         characters =  new LinkedList<Hero>();
                                         for (Hero o : chart) {
-                                            characters.add(new Hero(o.getName(), o.getX(), o.getY()));
+                                            characters.add(new Hero(o.getName(), o.getX(), o.getY(), o.getHealth(), o.getSide()));
                                         }
                                     }
                                     //System.out.println(X + "-" + Y);

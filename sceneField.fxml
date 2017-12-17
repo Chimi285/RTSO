@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
 <Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.101" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ControllerReg">
    <children>
       <Canvas fx:id="tf" height="2000.0" layoutX="1.0" layoutY="2.0" width="2000.0" />
+      <Label fx:id="lb" layoutX="1.0" layoutY="350.0" prefHeight="50.0" prefWidth="83.0" text="Label" textFill="#ae2b2b">
+         <font>
+            <Font name="System Bold" size="29.0" />
+         </font>
+      </Label>
    </children>
 </Pane>

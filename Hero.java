@@ -3,11 +3,13 @@
  */
 public class Hero {
     private String name;
-    private int x, y;
-    public Hero(String name, int x, int y){
+    private int x, y, health, side;
+    public Hero(String name, int x, int y, int health, int side){
         this.name = name;
         this.x = x;
         this.y = y;
+        this.health = health;
+        this.side = side;
     }
     public String getName(){
         return name;
@@ -16,11 +18,23 @@ public class Hero {
         this.x = x;
         this.y = y;
     }
+    public void setHealth(int health){
+        this.health = health;
+    }
+    public void setSide(int side){
+        this.side = side;
+    }
     public int getX(){
         return this.x;
     }
     public int getY(){
         return this.y;
+    }
+    public int getHealth() {
+        return this.health;
+    };
+    public int getSide(){
+        return this.side;
     }
 }
 //git comment
