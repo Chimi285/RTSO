@@ -13,6 +13,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -27,6 +28,7 @@ public class ControllerReg{
     private Canvas tf;
     @FXML
     private TextField TF1;
+    @FXML AnchorPane AP;
     private GraphicsContext gc;
     @FXML
     //comment fo git
@@ -34,7 +36,9 @@ public class ControllerReg{
         Stage stage = (Stage) TF1.getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("sceneField.fxml"));
  	tf = (Canvas)root.getChildrenUnmodifiable().get(0);// �������� ������ �� ������
-//        lb = (Label)root.getChildrenUnmodifiable().get(0);
+        System.out.print(root.getChildrenUnmodifiable());
+        AP = (AnchorPane)root.getChildrenUnmodifiable().get(1);
+        lb = (Label)AP.getChildrenUnmodifiable().get(0);
         try{
             if(!TF1.getText().replaceAll(" ", "").equals("")) {
                 System.out.println("Authorizating...");
@@ -51,18 +55,6 @@ public class ControllerReg{
                             repeat = false;
                             gc = tf.getGraphicsContext2D();
 
-                          /*  DoubleProperty x  = new SimpleDoubleProperty();
-                            DoubleProperty y  = new SimpleDoubleProperty();
-                            int xz = 50;
-                            int yz = 50;
-                            Timeline timeline = new Timeline(
-                                    new KeyFrame(Duration.seconds(0),
-                                            new KeyValue(x, Main.X),
-                                            new KeyValue(y, Main.Y)
-                                    )
-                            );
-                            timeline.setAutoReverse(true);
-                            timeline.setCycleCount(Timeline.INDEFINITE);*/
                             AnimationTimer timer = new AnimationTimer() {
                                 @Override
                                 public void handle(long now) {
@@ -74,9 +66,9 @@ public class ControllerReg{
                                     gc.fillRect(0, 0, 2000, 2000);
                                     if (Main.characters != null){
                                         for (Hero oo : Main.characters) {
-                                           /* if(Main.nickname != null && oo.getName().equals(Main.nickname)){
+                                            if(Main.nickname != null && oo.getName().equals(Main.nickname)){
                                                 lb.setText(String.valueOf(oo.getHealth()));
-                                            }*/
+                                            }
                                             gc.setFill(Color.FORESTGREEN);
                                             //System.out.print(oo.getName()+":"+oo.getX()+":"+oo.getY()+"/");
                                             gc.fillOval(
