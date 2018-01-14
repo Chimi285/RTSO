@@ -8,16 +8,20 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Scanner;
+import java.io.Serializable;
+
 
 import static java.lang.Thread.sleep;
 
-public class Main extends Application {
+public class Main extends Application implements Serializable {
     public static Scanner read;
     public static Scanner inMessage;
     public static PrintWriter outMessage;
@@ -29,6 +33,7 @@ public class Main extends Application {
     public static int X = 200;
     public static int Y = 200;
     public static LinkedList<Hero> characters;
+    public static Socket socket;
     LinkedList<Hero> chart = new LinkedList<>();
 
 
@@ -41,7 +46,7 @@ public class Main extends Application {
         try{
             InetAddress ipAddress = InetAddress.getByName(address);
             System.out.println("Any of you heard of a socket with IP address " + address + " and port " + serverPort + "?");
-            Socket socket = new Socket(ipAddress, serverPort);
+            socket = new Socket(ipAddress, serverPort);
             read = new Scanner(System.in);
             outMessage = new PrintWriter(socket.getOutputStream());
             inMessage = new Scanner(socket.getInputStream());
@@ -68,8 +73,8 @@ public class Main extends Application {
                             if (message.equalsIgnoreCase("Authorization Successful!")) {
                                 System.out.println("Authorization Successful from Client.");
                                 authorizationResult = "Ok";
-
-                            } else if (authorizationResult.equals("Ok")) {
+                                break;
+                            }/* else if (authorizationResult.equals("Ok")) {
                                 chart = new LinkedList<Hero>();
                                 for (int ii = 0; ii < message.length(); ii++) {
                                     int mode = 0;
@@ -140,10 +145,28 @@ public class Main extends Application {
                                     }
                                     //System.out.println(X + "-" + Y);
                                 }
-                            }
+                            }*/
                         }
                     }
                 //} catch (Exception e) {System.out.println("Change Error");}
+                ObjectInputStream oin = null;
+                try {
+                    oin = new ObjectInputStream(socket.getInputStream());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                while (work){
+                try {
+                    Data dt = new Data((Data) oin.readObject());
+                    characters = (dt.getPlayers());
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                    System.out.println("error2");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    System.out.println("error1");
+                }
+                }
             }
         }).start();
 

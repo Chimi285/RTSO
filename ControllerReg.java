@@ -37,8 +37,8 @@ public class ControllerReg{
         Parent root = FXMLLoader.load(getClass().getResource("sceneField.fxml"));
  	tf = (Canvas)root.getChildrenUnmodifiable().get(0);// �������� ������ �� ������
         System.out.print(root.getChildrenUnmodifiable());
-        AP = (AnchorPane)root.getChildrenUnmodifiable().get(1);
-        lb = (Label)AP.getChildrenUnmodifiable().get(0);
+//        AP = (AnchorPane)root.getChildrenUnmodifiable().get(1);
+        lb = (Label)root.getChildrenUnmodifiable().get(1);
         try{
             if(!TF1.getText().replaceAll(" ", "").equals("")) {
                 System.out.println("Authorizating...");
@@ -58,34 +58,39 @@ public class ControllerReg{
                             AnimationTimer timer = new AnimationTimer() {
                                 @Override
                                 public void handle(long now) {
-                                    tf.setLayoutX(-Main.X + stage.getWidth() / 2);
-                                    tf.setLayoutY(-Main.Y + stage.getHeight() / 2);
                                     //System.out.println(tf.getLayoutX() + ":" + Main.X + ":" + tf.getWidth());
                                     GraphicsContext gc = tf.getGraphicsContext2D();
                                     gc.setFill(Color.CORNSILK);
                                     gc.fillRect(0, 0, 2000, 2000);
                                     if (Main.characters != null){
                                         for (Hero oo : Main.characters) {
-                                            if(Main.nickname != null && oo.getName().equals(Main.nickname)){
-                                                lb.setText(String.valueOf(oo.getHealth()));
+                                            if (oo.getName() != null) {
+                                                if (Main.nickname != null && oo.getName().equals(Main.nickname)) {
+
+                                                    lb.setText(String.valueOf(oo.getHealth()));
+                                                    Main.X = oo.getX();
+                                                    Main.Y = oo.getY();
+                                                    tf.setLayoutX(-Main.X + stage.getWidth() / 2);
+                                                    tf.setLayoutY(-Main.Y + stage.getHeight() / 2);
+                                                }
+                                                gc.setFill(Color.FORESTGREEN);
+                                                //System.out.print(oo.getName()+":"+oo.getX()+":"+oo.getY()+"/");
+                                                gc.fillOval(
+                                                        oo.getX(),
+                                                        oo.getY(),
+                                                        100,
+                                                        100
+                                                );
+                                                gc.setFill(Color.BLACK);
+                                                gc.setFont(new Font(20));
+                                                gc.fillText(oo.getName(), oo.getX() + 35, oo.getY() + 45);
+                                                gc.setFill(Color.RED);
+                                                gc.setFont(new Font(20));
+                                                gc.fillText(String.valueOf(oo.getHealth()), oo.getX() + 35, oo.getY() + 65);
+                                                gc.setFill(Color.BLACK);
+                                                gc.setFont(new Font(20));
+                                                gc.fillText(String.valueOf(oo.getSide()), oo.getX() + 35, oo.getY() + 85);
                                             }
-                                            gc.setFill(Color.FORESTGREEN);
-                                            //System.out.print(oo.getName()+":"+oo.getX()+":"+oo.getY()+"/");
-                                            gc.fillOval(
-                                                    oo.getX(),
-                                                    oo.getY(),
-                                                    100,
-                                                    100
-                                            );
-                                            gc.setFill(Color.BLACK);
-                                            gc.setFont(new Font(20));
-                                            gc.fillText(oo.getName(), oo.getX() + 35, oo.getY() + 45);
-                                            gc.setFill(Color.RED);
-                                            gc.setFont(new Font(20));
-                                            gc.fillText(String.valueOf(oo.getHealth()), oo.getX() + 35, oo.getY() + 65);
-                                            gc.setFill(Color.BLACK);
-                                            gc.setFont(new Font(20));
-                                            gc.fillText(String.valueOf(oo.getSide()), oo.getX() + 35, oo.getY() + 85);
                                         }
                                 }
                                     //System.out.println();

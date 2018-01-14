@@ -1,7 +1,8 @@
 /**
  * Created by Виталий on 15.12.2017.
  */
-public class Hero {
+import java.io.Serializable;
+public class Hero implements Serializable{
     private String name;
     private int x, y, health, side;
     public Hero(String name, int x, int y, int health, int side){
