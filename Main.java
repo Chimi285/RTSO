@@ -113,6 +113,7 @@ public class Main extends Application implements Serializable {
                 }else if(authorizationResult.equals("Ok")){
                     outMessage.println("Died");
                     System.out.println("DiedX");
+                    outMessage.flush();
                 }
             }
         });
