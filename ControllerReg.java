@@ -66,30 +66,33 @@ public class ControllerReg{
                                         for (Hero oo : Main.characters) {
                                             if (oo.getName() != null) {
                                                 if (Main.nickname != null && oo.getName().equals(Main.nickname)) {
-
+                                                    if (oo.getHealth() <= 0) Main.Alive = false;
+                                                    else    Main.Alive = true;
                                                     lb.setText(String.valueOf(oo.getHealth()));
                                                     Main.X = oo.getX();
                                                     Main.Y = oo.getY();
                                                     tf.setLayoutX(-Main.X + stage.getWidth() / 2);
                                                     tf.setLayoutY(-Main.Y + stage.getHeight() / 2);
                                                 }
-                                                gc.setFill(Color.FORESTGREEN);
-                                                //System.out.print(oo.getName()+":"+oo.getX()+":"+oo.getY()+"/");
-                                                gc.fillOval(
-                                                        oo.getX(),
-                                                        oo.getY(),
-                                                        100,
-                                                        100
-                                                );
-                                                gc.setFill(Color.BLACK);
-                                                gc.setFont(new Font(20));
-                                                gc.fillText(oo.getName(), oo.getX() + 35, oo.getY() + 45);
-                                                gc.setFill(Color.RED);
-                                                gc.setFont(new Font(20));
-                                                gc.fillText(String.valueOf(oo.getHealth()), oo.getX() + 35, oo.getY() + 65);
-                                                gc.setFill(Color.BLACK);
-                                                gc.setFont(new Font(20));
-                                                gc.fillText(String.valueOf(oo.getSide()), oo.getX() + 35, oo.getY() + 85);
+                                                if (oo.getHealth() > 0) {
+                                                    gc.setFill(Color.FORESTGREEN);
+                                                    //System.out.print(oo.getName()+":"+oo.getX()+":"+oo.getY()+"/");
+                                                    gc.fillOval(
+                                                            oo.getX(),
+                                                            oo.getY(),
+                                                            100,
+                                                            100
+                                                    );
+                                                    gc.setFill(Color.BLACK);
+                                                    gc.setFont(new Font(20));
+                                                    gc.fillText(oo.getName(), oo.getX() + 35, oo.getY() + 45);
+                                                    gc.setFill(Color.RED);
+                                                    gc.setFont(new Font(20));
+                                                    gc.fillText(String.valueOf(oo.getHealth()), oo.getX() + 35, oo.getY() + 65);
+                                                    gc.setFill(Color.BLACK);
+                                                    gc.setFont(new Font(20));
+                                                    gc.fillText(String.valueOf(oo.getSide()), oo.getX() + 35, oo.getY() + 85);
+                                                }
                                             }
                                         }
                                 }
