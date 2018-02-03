@@ -12,6 +12,8 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -22,6 +24,12 @@ import javafx.util.Duration;
 import java.io.IOException;
 
 public class ControllerReg{
+    @FXML
+    private ImageView im1;
+    @FXML
+    private ImageView im2;
+    @FXML
+    private ImageView im3;
     @FXML
     private Label lb;
     @FXML
@@ -35,10 +43,12 @@ public class ControllerReg{
         private void mouseClick(MouseEvent event) throws IOException {
         Stage stage = (Stage) TF1.getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("sceneField.fxml"));
- 	tf = (Canvas)root.getChildrenUnmodifiable().get(0);// �������� ������ �� ������
+ 	tf = (Canvas)root.getChildrenUnmodifiable().get(0);
         System.out.print(root.getChildrenUnmodifiable());
-//        AP = (AnchorPane)root.getChildrenUnmodifiable().get(1);
         lb = (Label)root.getChildrenUnmodifiable().get(1);
+        im1 = (ImageView) root.getChildrenUnmodifiable().get(2);
+        im2 = (ImageView) root.getChildrenUnmodifiable().get(3);
+        im3 = (ImageView) root.getChildrenUnmodifiable().get(4);
         try{
             if(!TF1.getText().replaceAll(" ", "").equals("")) {
                 System.out.println("Authorizating...");
@@ -62,6 +72,7 @@ public class ControllerReg{
                                     GraphicsContext gc = tf.getGraphicsContext2D();
                                     gc.setFill(Color.CORNSILK);
                                     gc.fillRect(0, 0, 2000, 2000);
+                                    Hero player = null;
                                     if (Main.characters != null){
                                         for (Hero oo : Main.characters) {
                                             if (oo.getName() != null) {
@@ -73,6 +84,7 @@ public class ControllerReg{
                                                     Main.Y = oo.getY();
                                                     tf.setLayoutX(-Main.X + stage.getWidth() / 2);
                                                     tf.setLayoutY(-Main.Y + stage.getHeight() / 2);
+                                                    player = oo;
                                                 }
                                                 if (oo.getHealth() > 0) {
                                                     gc.setFill(Color.FORESTGREEN);
@@ -93,6 +105,76 @@ public class ControllerReg{
                                                     gc.setFont(new Font(20));
                                                     gc.fillText(String.valueOf(oo.getSide()), oo.getX() + 35, oo.getY() + 85);
                                                 }
+                                            }
+                                        }
+                                        if(player != null) {
+                                            gc.setFill(Color.RED);
+                                            switch (player.getSide()){
+                                                case 0:
+                                                    gc.strokeRect(
+                                                            player.getX(),
+                                                            player.getY()-50,
+                                                            100,
+                                                            100
+                                                    );
+                                                    break;
+                                                case 1:
+                                                    gc.strokeRect(
+                                                            player.getX()+50,
+                                                            player.getY(),
+                                                            100,
+                                                            100
+                                                    );
+                                                    break;
+                                                case 2:
+                                                    gc.strokeRect(
+                                                            player.getX(),
+                                                            player.getY()+50,
+                                                            100,
+                                                            100
+                                                    );
+                                                    break;
+                                                case 3:
+                                                    gc.strokeRect(
+                                                            player.getX()-50,
+                                                            player.getY(),
+                                                            100,
+                                                            100
+                                                    );
+                                                    break;
+                                            }
+                                            if(player.getHealth() > 0) {
+                                                gc.setFill(Color.FORESTGREEN);
+                                                gc.fillOval(
+                                                        player.getX(),
+                                                        player.getY(),
+                                                        100,
+                                                        100
+                                                );
+                                                gc.setFill(Color.BLACK);
+                                                gc.setFont(new Font(20));
+                                                gc.fillText(player.getName(), player.getX() + 35, player.getY() + 45);
+                                                gc.setFill(Color.RED);
+                                                gc.setFont(new Font(20));
+                                                gc.fillText(String.valueOf(player.getHealth()), player.getX() + 35, player.getY() + 65);
+                                                gc.setFill(Color.BLACK);
+                                                gc.setFont(new Font(20));
+                                                gc.fillText(String.valueOf(player.getSide()), player.getX() + 35, player.getY() + 85);
+                                                lb.setText(String.valueOf(player.getHealth()));
+                                            }
+                                                if(player.getInventory() [0] != null){
+                                            }else{
+                                                im1.setImage(new Image("null.png"));
+                                            }
+                                            if(player.getInventory() [1] != null){
+
+                                            }else{
+                                                im2.setImage(new Image("null.png"));
+                                            }
+                                            if(player.getInventory() [2] != null){
+
+                                            }else{
+                                                im3.setImage(new Image("null.png"));
                                             }
                                         }
                                 }
