@@ -16,6 +16,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -24,6 +25,8 @@ import javafx.util.Duration;
 import java.io.IOException;
 
 public class ControllerReg{
+    @FXML
+    private GridPane Gr;
     @FXML
     private ImageView im1;
     @FXML
@@ -39,16 +42,32 @@ public class ControllerReg{
     @FXML AnchorPane AP;
     private GraphicsContext gc;
     @FXML
-    //comment fo git
+    private ImageView lot1, lot2, lot3, lot4, lot5, lot6, lot7, lot8, lot9;
+    @FXML
+    /*private void mouseMove(MouseEvent event) throws IOException{
+        lot5.setImage(new Image("choisedNull.png"));
+    }*/
         private void mouseClick(MouseEvent event) throws IOException {
         Stage stage = (Stage) TF1.getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("sceneField.fxml"));
  	tf = (Canvas)root.getChildrenUnmodifiable().get(0);
-        System.out.print(root.getChildrenUnmodifiable());
+        System.out.println(root.getChildrenUnmodifiable());
         lb = (Label)root.getChildrenUnmodifiable().get(1);
         im1 = (ImageView) root.getChildrenUnmodifiable().get(2);
         im2 = (ImageView) root.getChildrenUnmodifiable().get(3);
         im3 = (ImageView) root.getChildrenUnmodifiable().get(4);
+        /*Gr = (GridPane) root.getChildrenUnmodifiable().get(5);
+        System.out.println(Gr.getChildrenUnmodifiable());
+        lot1 = (ImageView) Gr.getChildrenUnmodifiable().get(0);
+        lot2 = (ImageView) Gr.getChildrenUnmodifiable().get(1);
+        lot3 = (ImageView) Gr.getChildrenUnmodifiable().get(2);
+        lot4 = (ImageView) Gr.getChildrenUnmodifiable().get(3);
+        lot5 = (ImageView) Gr.getChildrenUnmodifiable().get(4);
+        lot6 = (ImageView) Gr.getChildrenUnmodifiable().get(5);
+        lot7 = (ImageView) Gr.getChildrenUnmodifiable().get(6);
+        lot8 = (ImageView) Gr.getChildrenUnmodifiable().get(7);
+        lot9 = (ImageView) Gr.getChildrenUnmodifiable().get(8);
+        lot5.setImage(new Image("null.png"));*/
         try{
             if(!TF1.getText().replaceAll(" ", "").equals("")) {
                 System.out.println("Authorizating...");
