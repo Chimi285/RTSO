@@ -36,6 +36,7 @@ public class Main extends Application implements Serializable {
     public static LinkedList<item> items;
     public static Socket socket;
     public static boolean Alive = true;
+    public static boolean inventoryMenu = false;
     LinkedList<Hero> chart = new LinkedList<>();
 
 

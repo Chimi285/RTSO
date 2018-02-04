@@ -44,9 +44,20 @@ public class ControllerReg{
     @FXML
     private ImageView lot1, lot2, lot3, lot4, lot5, lot6, lot7, lot8, lot9;
     @FXML
-    /*private void mouseMove(MouseEvent event) throws IOException{
-        lot5.setImage(new Image("choisedNull.png"));
-    }*/
+    private void mouseEnter(MouseEvent event) throws IOException{
+        if(Main.inventoryMenu) {
+            ImageView imgur = (ImageView) event.getSource();
+            imgur.setImage(new Image("choisedNull.png"));
+        }
+    }
+    @FXML
+    private void mouseExit(MouseEvent event) throws IOException{
+        if(Main.inventoryMenu) {
+            ImageView imgur = (ImageView) event.getSource();
+            imgur.setImage(new Image("null.png"));
+        }
+    }
+    @FXML
         private void mouseClick(MouseEvent event) throws IOException {
         Stage stage = (Stage) TF1.getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("sceneField.fxml"));
@@ -56,7 +67,7 @@ public class ControllerReg{
         im1 = (ImageView) root.getChildrenUnmodifiable().get(2);
         im2 = (ImageView) root.getChildrenUnmodifiable().get(3);
         im3 = (ImageView) root.getChildrenUnmodifiable().get(4);
-        /*Gr = (GridPane) root.getChildrenUnmodifiable().get(5);
+        Gr = (GridPane) root.getChildrenUnmodifiable().get(5);
         System.out.println(Gr.getChildrenUnmodifiable());
         lot1 = (ImageView) Gr.getChildrenUnmodifiable().get(0);
         lot2 = (ImageView) Gr.getChildrenUnmodifiable().get(1);
@@ -67,7 +78,7 @@ public class ControllerReg{
         lot7 = (ImageView) Gr.getChildrenUnmodifiable().get(6);
         lot8 = (ImageView) Gr.getChildrenUnmodifiable().get(7);
         lot9 = (ImageView) Gr.getChildrenUnmodifiable().get(8);
-        lot5.setImage(new Image("null.png"));*/
+        lot5.setImage(new Image("null.png"));
         try{
             if(!TF1.getText().replaceAll(" ", "").equals("")) {
                 System.out.println("Authorizating...");
