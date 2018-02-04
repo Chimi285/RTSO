@@ -136,10 +136,12 @@ public class ControllerReg{
                                                 }
                                             }
                                         }
-                                        for (Building oo: Main.buildings){
+                                        for (Build oo: Main.buildings){
+                                            //System.out.println(oo.getTexture());
                                             gc.drawImage(new Image("choisedNull.png"), oo.getX(), oo.getY(), oo.getWidth(), oo.getHeight());
                                             gc.setFill(Color.RED);
                                             gc.fillOval(oo.getEnterX(), oo.getEnterY(), 10, 10);
+                                            //System.out.println(oo.getTexture() + " - ok");
                                         }
                                         if(player != null) {
                                             gc.setFill(Color.RED);
@@ -212,7 +214,13 @@ public class ControllerReg{
                                             }
                                         }
                                 }
-                                    //System.out.println();
+                                    if(Main.inventoryMenu){
+                                        if(Main.outInventory != null && Main.outInventory[0] != null){
+                                            lot1.setImage(new Image(Main.outInventory[0].getTexture()));
+                                        }else{
+                                            lot1.setImage(new Image("null.png"));
+                                        }
+                                    }
                                 }
                             };
                             timer.start();

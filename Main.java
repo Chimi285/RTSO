@@ -33,10 +33,11 @@ public class Main extends Application implements Serializable {
     public static int X = 200;
     public static int Y = 200;
     public static LinkedList<Hero> characters;
-    public static LinkedList<Building> buildings;
+    public static LinkedList<Build> buildings;
     public static Socket socket;
     public static boolean Alive = true;
     public static boolean inventoryMenu = false;
+    public static item[] outInventory = null;
     LinkedList<Hero> chart = new LinkedList<>();
 
 
@@ -92,6 +93,8 @@ public class Main extends Application implements Serializable {
                     Data dt = new Data((Data) oin.readObject());
                     characters = (dt.getPlayers());
                     buildings = dt.getBuildings();
+                    inventoryMenu = dt.getMenu();
+                    outInventory = dt.getInventory();
                 } catch (ClassNotFoundException e) {
                     e.printStackTrace();
                     System.out.println("error2");
@@ -112,6 +115,7 @@ public class Main extends Application implements Serializable {
                     if (ke.getCode() == KeyCode.S) outMessage.println("Back");
                     if (ke.getCode() == KeyCode.D) outMessage.println("Right");
                     if (ke.getCode() == KeyCode.Q) outMessage.println("Hit");
+                    if (ke.getCode() == KeyCode.E) outMessage.println("Action");
                     outMessage.flush();
                 }else if(authorizationResult.equals("Ok")){
                     outMessage.println("Died");
