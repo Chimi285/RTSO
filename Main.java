@@ -33,7 +33,7 @@ public class Main extends Application implements Serializable {
     public static int X = 200;
     public static int Y = 200;
     public static LinkedList<Hero> characters;
-    public static LinkedList<item> items;
+    public static LinkedList<Building> buildings;
     public static Socket socket;
     public static boolean Alive = true;
     public static boolean inventoryMenu = false;
@@ -91,7 +91,7 @@ public class Main extends Application implements Serializable {
                 try {
                     Data dt = new Data((Data) oin.readObject());
                     characters = (dt.getPlayers());
-                    items = dt.getItems();
+                    buildings = dt.getBuildings();
                 } catch (ClassNotFoundException e) {
                     e.printStackTrace();
                     System.out.println("error2");

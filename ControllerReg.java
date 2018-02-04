@@ -39,7 +39,6 @@ public class ControllerReg{
     private Canvas tf;
     @FXML
     private TextField TF1;
-    @FXML AnchorPane AP;
     private GraphicsContext gc;
     @FXML
     private ImageView lot1, lot2, lot3, lot4, lot5, lot6, lot7, lot8, lot9;
@@ -78,7 +77,7 @@ public class ControllerReg{
         lot7 = (ImageView) Gr.getChildrenUnmodifiable().get(6);
         lot8 = (ImageView) Gr.getChildrenUnmodifiable().get(7);
         lot9 = (ImageView) Gr.getChildrenUnmodifiable().get(8);
-        lot5.setImage(new Image("null.png"));
+        gc = tf.getGraphicsContext2D();
         try{
             if(!TF1.getText().replaceAll(" ", "").equals("")) {
                 System.out.println("Authorizating...");
@@ -99,7 +98,7 @@ public class ControllerReg{
                                 @Override
                                 public void handle(long now) {
                                     //System.out.println(tf.getLayoutX() + ":" + Main.X + ":" + tf.getWidth());
-                                    GraphicsContext gc = tf.getGraphicsContext2D();
+                                    //GraphicsContext gc = tf.getGraphicsContext2D();
                                     gc.setFill(Color.CORNSILK);
                                     gc.fillRect(0, 0, 2000, 2000);
                                     Hero player = null;
@@ -136,6 +135,11 @@ public class ControllerReg{
                                                     gc.fillText(String.valueOf(oo.getSide()), oo.getX() + 35, oo.getY() + 85);
                                                 }
                                             }
+                                        }
+                                        for (Building oo: Main.buildings){
+                                            gc.drawImage(new Image("choisedNull.png"), oo.getX(), oo.getY(), oo.getWidth(), oo.getHeight());
+                                            gc.setFill(Color.RED);
+                                            gc.fillOval(oo.getEnterX(), oo.getEnterY(), 10, 10);
                                         }
                                         if(player != null) {
                                             gc.setFill(Color.RED);
