@@ -38,6 +38,8 @@ public class Main extends Application implements Serializable {
     public static boolean Alive = true;
     public static boolean inventoryMenu = false;
     public static item[] outInventory = null;
+    public static item[] inventory = new item[3];
+    public static int neo, neoN = -1;
     LinkedList<Hero> chart = new LinkedList<>();
 
 
@@ -95,6 +97,11 @@ public class Main extends Application implements Serializable {
                     buildings = dt.getBuildings();
                     inventoryMenu = dt.getMenu();
                     outInventory = dt.getInventory();
+                    inventory = dt.getInInventory();
+                    System.out.print(dt.getInInventory()[0]);
+                    System.out.print(dt.getInInventory()[1]);
+                    System.out.print(dt.getInInventory()[2]);
+                    System.out.println();
                 } catch (ClassNotFoundException e) {
                     e.printStackTrace();
                     System.out.println("error2");
@@ -115,7 +122,13 @@ public class Main extends Application implements Serializable {
                     if (ke.getCode() == KeyCode.S) outMessage.println("Back");
                     if (ke.getCode() == KeyCode.D) outMessage.println("Right");
                     if (ke.getCode() == KeyCode.Q) outMessage.println("Hit");
-                    if (ke.getCode() == KeyCode.E) outMessage.println("Action");
+                    if (ke.getCode() == KeyCode.E){
+                        neo = -1;
+                        neoN = -1;
+                        ControllerReg.choisedIM = new boolean[3];
+                        ControllerReg.choisedOM = new boolean[9];
+                        outMessage.println("Action");
+                    }
                     outMessage.flush();
                 }else if(authorizationResult.equals("Ok")){
                     outMessage.println("Died");

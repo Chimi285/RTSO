@@ -25,6 +25,8 @@ import javafx.util.Duration;
 import java.io.IOException;
 
 public class ControllerReg{
+    public static boolean[] choisedOM = new boolean[9];
+    public static boolean[] choisedIM = new boolean[3];
     @FXML
     private GridPane Gr;
     @FXML
@@ -43,19 +45,99 @@ public class ControllerReg{
     @FXML
     private ImageView lot1, lot2, lot3, lot4, lot5, lot6, lot7, lot8, lot9;
     @FXML
-    private void mouseEnter(MouseEvent event) throws IOException{
-        if(Main.inventoryMenu) {
+    private void mouseEnterOM(MouseEvent event) throws IOException{
+        if(Main.inventoryMenu && Main.neo == -1) {
             ImageView imgur = (ImageView) event.getSource();
-            imgur.setImage(new Image("choisedNull.png"));
+            choisedOM[Integer.parseInt(new StringBuilder().append(imgur.getId().charAt(3)).toString()) - 1] = true;
         }
     }
     @FXML
-    private void mouseExit(MouseEvent event) throws IOException{
-        if(Main.inventoryMenu) {
+    private void mouseExitOM(MouseEvent event) throws IOException{
+        if(Main.inventoryMenu && Main.neo == -1) {
             ImageView imgur = (ImageView) event.getSource();
-            imgur.setImage(new Image("null.png"));
+            choisedOM[Integer.parseInt(new StringBuilder().append(imgur.getId().charAt(3)).toString()) - 1] = false;
         }
     }
+    @FXML
+    private void chooseOM(MouseEvent event){
+        ImageView imgur = (ImageView) event.getSource();
+        //System.out.println("choose");
+        if(Main.inventoryMenu){
+            switch (Main.neoN) {
+                case -1:
+                if (Main.outInventory[Integer.parseInt(new StringBuilder().append(imgur.getId().charAt(3)).toString())-1] != null){
+                    if (Main.neo != Integer.parseInt(new StringBuilder().append(imgur.getId().charAt(3)).toString())-1){
+                        Main.neoN = 1;
+                        Main.neo = Integer.parseInt(new StringBuilder().append(imgur.getId().charAt(3)).toString())-1;
+                        //System.out.println(Main.neo);
+                    }
+                }
+                break;
+                case 1:
+                    if (Main.neo == Integer.parseInt(new StringBuilder().append(imgur.getId().charAt(3)).toString())-1){
+                        Main.neo = -1;
+                        Main.neoN = -1;
+                        choisedIM = new boolean[3];
+                    }
+                    break;
+                case 0:
+                    Main.outMessage.println("movement0/" + Main.neo + "/" + (Integer.parseInt(new StringBuilder().append(imgur.getId().charAt(3)).toString()) - 1));
+                    Main.outMessage.flush();
+                    Main.neo = -1;
+                    Main.neoN = -1;
+                    break;
+            }
+        }
+    }
+
+    @FXML
+    private void chooseIM(MouseEvent event){
+        ImageView imgur = (ImageView) event.getSource();
+        //System.out.println("choose");
+        if(Main.inventoryMenu){
+            switch (Main.neoN) {
+                case -1:
+                    if (Main.outInventory[Integer.parseInt(new StringBuilder().append(imgur.getId().charAt(2)).toString())-1] != null){
+                        if (Main.neo != Integer.parseInt(new StringBuilder().append(imgur.getId().charAt(2)).toString())-1) {
+                            Main.neoN = 0;
+                            Main.neo = Integer.parseInt(new StringBuilder().append(imgur.getId().charAt(2)).toString())-1;
+                            //System.out.println(Main.neo);
+                        }
+                    }
+                    break;
+                case 1:
+                    Main.outMessage.println("movement1/" + Main.neo + "/" + (Integer.parseInt(new StringBuilder().append(imgur.getId().charAt(2)).toString())-1));
+                    Main.outMessage.flush();
+                    Main.neo = -1;
+                    Main.neoN = -1;
+                    choisedOM = new boolean[9];
+                    break;
+                case 0:
+                    if (Main.neo == Integer.parseInt(new StringBuilder().append(imgur.getId().charAt(2)).toString())-1){
+                        Main.neo = -1;
+                        Main.neoN = -1;
+                    }
+                    break;
+            }
+        }
+    }
+
+    @FXML
+    private void mouseEnterIM(MouseEvent event) throws IOException{
+        if(Main.inventoryMenu && Main.neo == -1) {
+            ImageView imgur = (ImageView) event.getSource();
+            choisedIM[Integer.parseInt(new StringBuilder().append(imgur.getId().charAt(2)).toString()) - 1] = true;
+        }
+    }
+
+    @FXML
+    private void mouseExitIM(MouseEvent event) throws IOException{
+        if(Main.inventoryMenu && Main.neo == -1) {
+            ImageView imgur = (ImageView) event.getSource();
+            choisedIM[Integer.parseInt(new StringBuilder().append(imgur.getId().charAt(2)).toString()) - 1] = false;
+        }
+    }
+
     @FXML
         private void mouseClick(MouseEvent event) throws IOException {
         Stage stage = (Stage) TF1.getScene().getWindow();
@@ -138,7 +220,7 @@ public class ControllerReg{
                                         }
                                         for (Build oo: Main.buildings){
                                             //System.out.println(oo.getTexture());
-                                            gc.drawImage(new Image("choisedNull.png"), oo.getX(), oo.getY(), oo.getWidth(), oo.getHeight());
+                                            gc.drawImage(new Image(oo.getTexture()), oo.getX(), oo.getY(), oo.getWidth(), oo.getHeight());
                                             gc.setFill(Color.RED);
                                             gc.fillOval(oo.getEnterX(), oo.getEnterY(), 10, 10);
                                             //System.out.println(oo.getTexture() + " - ok");
@@ -198,28 +280,125 @@ public class ControllerReg{
                                                 gc.fillText(String.valueOf(player.getSide()), player.getX() + 35, player.getY() + 85);
                                                 lb.setText(String.valueOf(player.getHealth()));
                                             }
-                                                if(player.getInventory() [0] != null){
-                                            }else{
-                                                im1.setImage(new Image("null.png"));
-                                            }
-                                            if(player.getInventory() [1] != null){
 
-                                            }else{
-                                                im2.setImage(new Image("null.png"));
-                                            }
-                                            if(player.getInventory() [2] != null){
 
+                                            if(Main.inventory != null && Main.inventory[0] != null){
+                                                if(choisedIM[0] == false) im1.setImage(new Image(Main.inventory[0].getTexture()));
+                                                else im1.setImage(new Image(Main.inventory[0].getChoisedTexture()));
                                             }else{
-                                                im3.setImage(new Image("null.png"));
+                                                if(choisedIM[0] == false) im1.setImage(new Image("null.png"));
+                                                else im1.setImage(new Image("choisedNull.png"));
                                             }
+
+                                            if(Main.inventory != null && Main.inventory[1] != null){
+                                                if(choisedIM[1] == false) im2.setImage(new Image(Main.inventory[1].getTexture()));
+                                                else im2.setImage(new Image(Main.inventory[1].getChoisedTexture()));
+                                            }else{
+                                                if(choisedIM[1] == false) im2.setImage(new Image("null.png"));
+                                                else im2.setImage(new Image("choisedNull.png"));
+                                            }
+
+                                            if(Main.inventory != null && Main.inventory[2] != null){
+                                                if(choisedIM[2] == false) im3.setImage(new Image(Main.inventory[2].getTexture()));
+                                                else im3.setImage(new Image(Main.inventory[2].getChoisedTexture()));
+                                            }else{
+                                                if(choisedIM[2] == false) im3.setImage(new Image("null.png"));
+                                                else im3.setImage(new Image("choisedNull.png"));
+                                            }
+
                                         }
                                 }
                                     if(Main.inventoryMenu){
                                         if(Main.outInventory != null && Main.outInventory[0] != null){
-                                            lot1.setImage(new Image(Main.outInventory[0].getTexture()));
+                                            if(choisedOM[0] == false) lot1.setImage(new Image(Main.outInventory[0].getTexture()));
+                                            else lot1.setImage(new Image(Main.outInventory[0].getChoisedTexture()));
                                         }else{
-                                            lot1.setImage(new Image("null.png"));
+                                            if(choisedOM[0] == false) lot1.setImage(new Image("null.png"));
+                                            else lot1.setImage(new Image("choisedNull.png"));
                                         }
+
+
+                                        if(Main.outInventory != null && Main.outInventory[1] != null){
+                                            if(choisedOM[1] == false) lot2.setImage(new Image(Main.outInventory[1].getTexture()));
+                                            else lot2.setImage(new Image(Main.outInventory[1].getChoisedTexture()));
+                                        }else{
+                                            if(choisedOM[1] == false) lot2.setImage(new Image("null.png"));
+                                            else lot2.setImage(new Image("choisedNull.png"));
+                                        }
+
+
+                                        if(Main.outInventory != null && Main.outInventory[2] != null){
+                                            if(choisedOM[2] == false) lot3.setImage(new Image(Main.outInventory[2].getTexture()));
+                                            else lot3.setImage(new Image(Main.outInventory[2].getChoisedTexture()));
+                                        }else{
+                                            if(choisedOM[2] == false) lot3.setImage(new Image("null.png"));
+                                            else lot3.setImage(new Image("choisedNull.png"));
+                                        }
+
+
+                                        if(Main.outInventory != null && Main.outInventory[3] != null){
+                                            if(choisedOM[3] == false) lot4.setImage(new Image(Main.outInventory[3].getTexture()));
+                                            else lot4.setImage(new Image(Main.outInventory[3].getChoisedTexture()));
+                                        }else{
+                                            if(choisedOM[3] == false) lot4.setImage(new Image("null.png"));
+                                            else lot4.setImage(new Image("choisedNull.png"));
+                                        }
+
+
+                                        if(Main.outInventory != null && Main.outInventory[4] != null){
+                                            if(choisedOM[4] == false) lot5.setImage(new Image(Main.outInventory[4].getTexture()));
+                                            else lot5.setImage(new Image(Main.outInventory[4].getChoisedTexture()));
+                                        }else{
+                                            if(choisedOM[4] == false) lot5.setImage(new Image("null.png"));
+                                            else lot5.setImage(new Image("choisedNull.png"));
+                                        }
+
+
+                                        if(Main.outInventory != null && Main.outInventory[5] != null){
+                                            if(choisedOM[5] == false) lot6.setImage(new Image(Main.outInventory[5].getTexture()));
+                                            else lot6.setImage(new Image(Main.outInventory[5].getChoisedTexture()));
+                                        }else{
+                                            if(choisedOM[5] == false) lot6.setImage(new Image("null.png"));
+                                            else lot6.setImage(new Image("choisedNull.png"));
+                                        }
+
+
+                                        if(Main.outInventory != null && Main.outInventory[6] != null){
+                                            if(choisedOM[6] == false) lot7.setImage(new Image(Main.outInventory[6].getTexture()));
+                                            else lot7.setImage(new Image(Main.outInventory[6].getChoisedTexture()));
+                                        }else{
+                                            if(choisedOM[6] == false) lot7.setImage(new Image("null.png"));
+                                            else lot7.setImage(new Image("choisedNull.png"));
+                                        }
+
+
+                                        if(Main.outInventory != null && Main.outInventory[7] != null){
+                                            if(choisedOM[7] == false) lot8.setImage(new Image(Main.outInventory[7].getTexture()));
+                                            else lot8.setImage(new Image(Main.outInventory[7].getChoisedTexture()));
+                                        }else{
+                                            if(choisedOM[7] == false) lot8.setImage(new Image("null.png"));
+                                            else lot8.setImage(new Image("choisedNull.png"));
+                                        }
+
+
+                                        if(Main.outInventory != null && Main.outInventory[8] != null){
+                                            if(choisedOM[8] == false) lot9.setImage(new Image(Main.outInventory[8].getTexture()));
+                                            else lot9.setImage(new Image(Main.outInventory[8].getChoisedTexture()));
+                                        }else{
+                                            if(choisedOM[8] == false) lot9.setImage(new Image("null.png"));
+                                            else lot9.setImage(new Image("choisedNull.png"));
+                                        }
+                                    }else if(lot1.getImage() != null){
+                                        lot1.setImage(null);
+                                        lot2.setImage(null);
+                                        lot3.setImage(null);
+                                        lot4.setImage(null);
+                                        lot5.setImage(null);
+                                        lot6.setImage(null);
+                                        lot7.setImage(null);
+                                        lot8.setImage(null);
+                                        lot9.setImage(null);
+
                                     }
                                 }
                             };
